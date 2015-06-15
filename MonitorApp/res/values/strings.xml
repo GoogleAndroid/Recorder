@@ -12,6 +12,5 @@
     <string name="status">查看录制状态</string>
     <string name="title_activity_graphics">Graphics</string>
     <string name="title_activity_task">TaskActivity</string>
-    <string name="hello_world">Hello world!</string>
 
 </resources>

@@ -1,31 +1,17 @@
 package com.jichao.monitorapp.activitys;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import com.jichao.monitorapp.R;
-import com.jichao.monitorapp.R.id;
-import com.jichao.monitorapp.R.layout;
-import com.jichao.monitorapp.bean.AppInfo;
-
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningAppProcessInfo;
-import android.app.ActivityOptions;
 import android.app.ListActivity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v7.widget.ShareActionProvider;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -41,6 +27,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jichao.monitorapp.R;
+import com.jichao.monitorapp.bean.AppInfo;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class AppActivity extends ListActivity implements OnScrollListener,
