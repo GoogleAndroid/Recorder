@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">性能监控</string>
+    <string name="selectApp">选择被监控应用</string>
+    <string name="description">不积跬步无以至千里  不积小流无以成江海</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_RecordingActivity">RecordingActivity</string>
+    <string name="recorder_ds">记得在录制之前启动需要测试的APP, 否则数据为空</string>
+    <string name="title_activity_applist">APPList</string>
+    <string name="title_activity_show_app">ShowApp</string>
+    <string name="status">查看录制状态</string>
+    <string name="title_activity_graphics">Graphics</string>
+    <string name="title_activity_task">TaskActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
