@@ -35,7 +35,7 @@
             android:name="org.achartengine.GraphicalActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".TaskActivity"
+            android:name=".StatusActivity"
             android:label="@string/title_activity_task" >
         </activity>
     </application>

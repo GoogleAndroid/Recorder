@@ -1,24 +1,21 @@
 package com.jichao.monitorapp;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.achartengine.ChartFactory;
-import org.achartengine.chart.PointStyle;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer.FillOutsideLine;
 
-import com.jichao.monitorapp.bean.Recorder;
-
-import android.R.color;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+
+import com.jichao.monitorapp.bean.Recorder;
 
 public class LineGraphics {
 
@@ -33,18 +30,10 @@ public class LineGraphics {
 			Recorder recorder = map.get(packagename);
 			List<Long> list = recorder.cpu_usage;
 			for (int i = 0; i < list.size(); i++) {
-				xys.add(5 + i * 5, list.get(i));
+				xys.add(0 + i * 5, list.get(i));
 			}
 			series.add(xys);
 		}
-		// XYSeries xvs1 = new XYSeries("line1");
-		// XYSeries xvs2 = new XYSeries("line2");
-		// for (int i = 0; i < 10; i++) {
-		// xvs1.add(i, Math.random() * 100);
-		// xvs2.add(i, Math.random() * 100);
-		// }
-		// series.add(xvs1);
-		// series.add(xvs2);
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		dataset.addAllSeries(series);
 		/* 准备renderer */
@@ -62,21 +51,6 @@ public class LineGraphics {
 			spr.setChartValuesTextSize(20);
 			renderer.addSeriesRenderer(spr);
 		}
-//		XYSeriesRenderer spr1 = new XYSeriesRenderer();
-//		spr1.setColor(Color.RED);
-//		FillOutsideLine fill = new FillOutsideLine(FillOutsideLine.Type.BELOW);
-//		fill.setColor(Color.RED);
-//		spr1.addFillOutsideLine(fill);
-//		spr1.setLineWidth(10);
-//		spr1.setDisplayBoundingPoints(true);
-//		spr1.setDisplayChartValues(true);
-//		spr1.setChartValuesTextSize(20);
-//		spr1.setPointStyle(PointStyle.CIRCLE);
-//		XYSeriesRenderer spr2 = new XYSeriesRenderer();
-//		spr2.setColor(Color.BLUE);
-//		spr2.setLineWidth(5);
-//		renderer.addSeriesRenderer(spr1);
-//		renderer.addSeriesRenderer(spr2);
 		renderer.setXTitle("时间(单位s)");
 		renderer.setXLabelsAngle(45);
 		renderer.setYTitle("CPU占用率%");

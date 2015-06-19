@@ -212,7 +212,7 @@ public class RecordingActivity extends Activity implements OnClickListener,
 	}
 
 	private void initViews() {
-		tv1 = (TextView) findViewById(R.id.duration);
+//		tv1 = (TextView) findViewById(R.id.duration);
 		button1 = (Button) findViewById(R.id.button1);
 		button2 = (Button) findViewById(R.id.button2);
 		button3 = (Button) findViewById(R.id.button3);

@@ -7,29 +7,87 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/description"
         android:layout_marginTop="50dp"
+        android:text="@string/description"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/selectApp"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/selectApp" />
+            android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/recordingstatus"
+            <TextView
+                android:id="@+id/selectApp"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/selectApp" />
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/textselector" >
+            </Spinner>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/status" />
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/filename" />
+
+            <EditText
+                android:id="@+id/filename"
+                android:layout_width="150sp"
+                android:layout_height="30sp"
+                android:layout_weight="1"
+                android:background="@drawable/textselector"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" >
+        </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/startRecording"
+        android:layout_width="150sp"
+        android:layout_height="40sp"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:text="开始录制"
+        android:textSize="12sp" />
+    <Button
+        android:id="@+id/recordingStatus"
+        android:layout_width="150sp"
+        android:layout_height="40sp"
+        android:layout_centerInParent="true"
+        android:ems="10"
+         android:layout_below="@+id/startRecording"
+        android:text="查看录制"
+        android:textSize="12sp" />
 
 </RelativeLayout>

@@ -10,20 +10,20 @@
     </ListView>
 
     <LinearLayout
+        android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <ImageView
             android:id="@+id/iv1"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
 
         <TextView
             android:id="@+id/tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left|bottom"
-            android:hint="本机没安装程序！"
             android:paddingLeft="20dp" />
     </LinearLayout>
 

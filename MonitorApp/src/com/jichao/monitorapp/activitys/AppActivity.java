@@ -207,24 +207,6 @@ public class AppActivity extends ListActivity implements OnScrollListener,
 		ViewHold vh = (ViewHold) view.getTag();
 		String packageName = vh.packageName;
 		appName=vh.tv.getText().toString();
-		// Intent intent1 = new Intent(Intent.ACTION_MAIN);
-		// intent1.addCategory(Intent.CATEGORY_LAUNCHER);
-		// intent1.setPackage(vh.packageName);
-		// List<ResolveInfo> list = pkm.queryIntentActivities(intent1, 0);
-		// ResolveInfo ri = list.iterator().next();
-		// if(ri!=null){
-		// Intent intent = new Intent(Intent.ACTION_MAIN);
-		// intent.addCategory(Intent.CATEGORY_LAUNCHER);
-		// intent.setComponent(new
-		// ComponentName(ri.activityInfo.packageName,ri.activityInfo.name));
-		// startActivity(intent);
-		// Intent intent2 = new Intent();
-		// intent2.setClass(this, RecordingActivity.class);
-		// startActivity(intent2);
-		// }
-		// else {
-		// showToast("对不起！此应用无法打开！");
-		// }
 		Intent intent2 = new Intent();
 		intent2.setClass(this, RecordingActivity.class);
 		intent2.putExtra("packagename", packageName);
