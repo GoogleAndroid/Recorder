@@ -92,9 +92,9 @@ public class StatusActivity extends Activity implements OnClickListener,
 			((TextView) tr.findViewById(R.id.date)).setText(d);
 			((TextView) tr.findViewById(R.id.date)).setTag(filename[i]
 					.split("__")[4]);
-			String ongoing = getSharedPreferences("Recordings",
-					Context.MODE_PRIVATE).getLong("ongoing", 0)
-					+ "";
+			Long time = getSharedPreferences("Recordings",
+					Context.MODE_PRIVATE).getLong("ongoing", 0);
+			String ongoing = Long.toString(time);
 			String status = ongoing.equals(filename[i].split("__")[4]) ? "正在录制"
 					: "完成";
 			((TextView) tr.findViewById(R.id.status)).setText(status);
@@ -237,6 +237,11 @@ public class StatusActivity extends Activity implements OnClickListener,
 		Matcher m;
 		while ((data = br.readLine()) != null) {
 			String s[] = data.trim().split(" +");
+			//正在写入时候，读取可能存在数据不全，忽略掉，完成录制，不会出现这种情况
+			if(s.length<10){
+				System.out.println("-----------------------"+Arrays.toString(s));
+				continue;
+			}
 			// 为每一个进程创建一个记录对象
 			System.out.println("Process Name: " + s[nameindex]);
 			Recorder recorder;
@@ -275,7 +280,7 @@ public class StatusActivity extends Activity implements OnClickListener,
 		Editor et = getApplication().getSharedPreferences("Recordings",
 				Context.MODE_PRIVATE).edit();
 		et.putBoolean("hasRecording", false);
-		et.putString("ongoing", "null");
+		et.putLong("ongoing", 0);
 		et.apply();
 		System.out.println("************修改preference的值为false");
 	}
