@@ -84,6 +84,7 @@ public class StatusActivity extends Activity implements OnClickListener,
 					.split("__")[3]);
 			((TextView) tr.findViewById(R.id.filename)).getPaint().setFlags(
 					Paint.UNDERLINE_TEXT_FLAG);
+			tr.findViewById(R.id.filename).setOnClickListener(this);
 			Date date = new Date(Long.parseLong(filename[i].split("__")[4]));
 			String d = (date.getYear() + 1900) + "-" + date.getMonth() + "-"
 					+ date.getDay() + " " + date.getHours() + ":"
@@ -92,21 +93,19 @@ public class StatusActivity extends Activity implements OnClickListener,
 			((TextView) tr.findViewById(R.id.date)).setTag(filename[i]
 					.split("__")[4]);
 			String ongoing = getSharedPreferences("Recordings",
-					Context.MODE_PRIVATE).getString("ongoing", "null");
-			String status = ongoing.equals(filename[i].split("__")[2]) ? "正在录制"
+					Context.MODE_PRIVATE).getLong("ongoing", 0)
+					+ "";
+			String status = ongoing.equals(filename[i].split("__")[4]) ? "正在录制"
 					: "完成";
 			((TextView) tr.findViewById(R.id.status)).setText(status);
 			String operator = status.equals("正在录制") ? "停止" : "删除";
 			((Button) tr.findViewById(R.id.operator)).setText(operator);
+			tr.findViewById(R.id.operator).setOnClickListener(this);
 			tbl.addView(tr);
 		}
 	}
 
 	private void initlst() {
-		if (tbl.findViewById(R.id.operator) != null) {
-			tbl.findViewById(R.id.operator).setOnClickListener(this);
-			tbl.findViewById(R.id.filename).setOnClickListener(this);
-		}
 	}
 
 	private void initView() {
@@ -162,7 +161,7 @@ public class StatusActivity extends Activity implements OnClickListener,
 					}
 				}
 				new File(getFilesDir(), recordfile).delete();
-				v.setVisibility(View.GONE);
+				((TableRow) v.getParent()).setVisibility(View.GONE);
 			}
 			break;
 

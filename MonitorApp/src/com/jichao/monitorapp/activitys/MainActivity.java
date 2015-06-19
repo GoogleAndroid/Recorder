@@ -16,6 +16,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.Message;
 import android.preference.EditTextPreference;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,6 +34,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +45,7 @@ import com.jichao.monitorapp.bean.AppInfo;
 
 @SuppressLint("NewApi")
 public class MainActivity extends Activity implements OnClickListener,
-		OnItemClickListener, OnItemSelectedListener, Runnable {
+		OnItemClickListener, OnItemSelectedListener, Runnable, Callback {
 	final static String TAG = "monitor";
 	// 定义变量
 	Spinner sp1;
@@ -55,6 +58,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	String packagename;
 	String appname;
 	Handler handler;
+	ProgressBar pb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +109,9 @@ public class MainActivity extends Activity implements OnClickListener,
 			}
 		};
 		filename.addTextChangedListener(textWatcher);
-		handler = new Handler();
+		handler = new Handler(this);
+		pb = (ProgressBar) findViewById(R.id.pb1);
+		pb.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
@@ -138,16 +144,9 @@ public class MainActivity extends Activity implements OnClickListener,
 				showToast("文件名不能为空");
 				return;
 			}
+			pb.setVisibility(View.VISIBLE);
 			String _filename = filename.getText().toString();
-			try {
-				startRecording(_filename);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			new MyThread(_filename).start();
 			break;
 		case R.id.recordingStatus:
 			Intent intent = new Intent();
@@ -160,6 +159,26 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	}
 
+	class MyThread extends Thread{
+		String filename;
+		public MyThread(String filename) {
+			this.filename=filename;
+		}
+		@Override
+		public void run() {
+			super.run();
+			try {
+				startRecording(filename);
+				handler.sendEmptyMessage(0);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	private List<AppInfo> listApp() {
 		PackageManager pkm;
 		List<ApplicationInfo> applist = new ArrayList<ApplicationInfo>();
@@ -277,8 +296,9 @@ public class MainActivity extends Activity implements OnClickListener,
 			return;
 		}
 		File recordingfile;
+		long time = new Date().getTime();
 		String storeFilename = "jichao" + "__" + appname + "__" + packagename+"__"+_filename
-				+ "__" + new Date().getTime();
+				+ "__" + time;
 		storeFilename = storeFilename.replace(" ","");
 		recordingfile = new File(getFilesDir(), storeFilename);
 		File topStart = new File(getFilesDir(), "start.sh");
@@ -290,7 +310,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		fw = new FileWriter(topStart);
 		fw.write("#!/system/bin/sh");
 		fw.write("\n");
-		fw.write("top  -d 5 -n 2|grep " + packagename + "> "
+		fw.write("top |grep " + packagename + "> "
 				+ recordingfile.getAbsolutePath());
 		fw.close();
 		topStart.setExecutable(true);
@@ -299,13 +319,27 @@ public class MainActivity extends Activity implements OnClickListener,
 		Editor et = getApplication().getSharedPreferences("Recordings",
 				Context.MODE_PRIVATE).edit();
 		et.putBoolean("hasRecording", true);
-		et.putString("ongoing", packagename);
+		et.putLong("ongoing", time);
 		et.apply();
 	}
 
 	@Override
 	public void run() {
 
+	}
+
+	@Override
+	public boolean handleMessage(Message msg) {
+		switch (msg.what) {
+		case 0:
+			pb.setVisibility(View.INVISIBLE);
+			showToast("录制已经开始！");
+			break;
+
+		default:
+			break;
+		}
+		return false;
 	}
 
 }

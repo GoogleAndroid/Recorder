@@ -11,6 +11,14 @@
         android:text="@string/description"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <ProgressBar
+        android:id="@+id/pb1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
