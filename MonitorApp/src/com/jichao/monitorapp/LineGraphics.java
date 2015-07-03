@@ -14,21 +14,35 @@ import org.achartengine.renderer.XYSeriesRenderer.FillOutsideLine;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.view.View;
 
 import com.jichao.monitorapp.bean.Recorder;
 
 public class LineGraphics {
 
-	final static int[] COLORS = { Color.RED, Color.GREEN, Color.BLUE, Color.MAGENTA,
-			Color.YELLOW, Color.CYAN };
+	final static int[] COLORS = { Color.RED, Color.GREEN, Color.BLUE,
+			Color.MAGENTA, Color.YELLOW, Color.CYAN };
 
-	public Intent showCPU(Context context, Map<String, Recorder> map) {
+	public View showCPUView(Context context, Map<String, Recorder> map) {
+		return getView(context, map, "cpu");
+	}
+
+	public View showMEMView(Context context, Map<String, Recorder> map) {
+		return getView(context, map, "mem");
+	}
+
+	private View getView(Context context, Map<String, Recorder> map, String tag) {
 		/* 准备数据 */
 		List<XYSeries> series = new ArrayList<>();
 		for (String packagename : map.keySet()) {
 			XYSeries xys = new XYSeries(packagename);
 			Recorder recorder = map.get(packagename);
-			List<Long> list = recorder.cpu_usage;
+			List<Long> list;
+			if (tag.equals("cpu")) {
+				list = recorder.cpu_usage;
+			} else {
+				list = recorder.mem_usage;
+			}
 			for (int i = 0; i < list.size(); i++) {
 				xys.add(0 + i * 5, list.get(i));
 			}
@@ -53,24 +67,24 @@ public class LineGraphics {
 		}
 		renderer.setXTitle("时间(单位s)");
 		renderer.setXLabelsAngle(45);
-		renderer.setYTitle("CPU占用率%");
+		if (tag.equals("cpu")) {
+			renderer.setYTitle("CPU占用率%");
+			renderer.setChartTitle("CPU占用率");
+		} else {
+			renderer.setYTitle("MEM使用");
+			renderer.setChartTitle("MEM消耗");
+		}
 		renderer.setAxisTitleTextSize(30);
 		renderer.setBackgroundColor(Color.GRAY);
 		renderer.setApplyBackgroundColor(true);
 		renderer.setLabelsTextSize(30);
 		renderer.setLegendTextSize(30);
 		renderer.setLegendHeight(100);
-		renderer.setChartTitle("CPU占用率");
 		renderer.setAxesColor(Color.YELLOW);
 		renderer.setChartTitleTextSize(60);
 		renderer.setDisplayValues(true);
 		renderer.setMargins(new int[] { 20, 100, 100, 30 });
 		renderer.setShowGrid(true);
-		return ChartFactory.getLineChartIntent(context, dataset, renderer);
-	}
-
-	public Intent showMEM(Context context, Map<String, Recorder> map) {
-
-		return null;
+		return ChartFactory.getLineChartView(context, dataset, renderer);
 	}
 }

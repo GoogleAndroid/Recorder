@@ -40,7 +40,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jichao.monitorapp.R;
-import com.jichao.monitorapp.StatusActivity;
 import com.jichao.monitorapp.bean.AppInfo;
 
 @SuppressLint("NewApi")
@@ -112,13 +111,6 @@ public class MainActivity extends Activity implements OnClickListener,
 		handler = new Handler(this);
 		pb = (ProgressBar) findViewById(R.id.pb1);
 		pb.setVisibility(View.INVISIBLE);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
 	}
 
 	@Override

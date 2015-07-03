@@ -1,4 +1,4 @@
-package com.jichao.monitorapp;
+package com.jichao.monitorapp.activitys;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,12 +41,15 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jichao.monitorapp.LineGraphics;
+import com.jichao.monitorapp.R;
+import com.jichao.monitorapp.R.id;
 import com.jichao.monitorapp.R.layout;
 import com.jichao.monitorapp.bean.Recorder;
 
 @SuppressLint({ "InflateParams", "NewApi" })
 public class StatusActivity extends Activity implements OnClickListener,
-		Runnable, Callback {
+	 Callback {
 
 	Toast toast;
 	TableLayout tbl;
@@ -112,10 +115,10 @@ public class StatusActivity extends Activity implements OnClickListener,
 
 		tbl = (TableLayout) findViewById(R.id.tablestatus);
 		rl = (ViewGroup) findViewById(android.R.id.content);
-		pb = (ProgressBar) findViewById(R.id.pb);
-		loading = (TextView) findViewById(R.id.loading);
-		loading.setVisibility(View.INVISIBLE);
-		pb.setVisibility(View.INVISIBLE);
+//		pb = (ProgressBar) findViewById(R.id.pb);
+//		loading = (TextView) findViewById(R.id.loading);
+//		loading.setVisibility(View.INVISIBLE);
+//		pb.setVisibility(View.INVISIBLE);
 	}
 
 	private String[] getRecordingFiles() {
@@ -177,11 +180,15 @@ public class StatusActivity extends Activity implements OnClickListener,
 					break;
 				}
 			}
-			new Thread(new RecordingInfo(recordfile)).start();
-			loading.setVisibility(View.VISIBLE);
-			pb.setVisibility(View.VISIBLE);
-			pb.invalidate();
-			loading.invalidate();
+			Intent intent = new Intent();
+			intent.setClassName(this, MonitorActivity.class.getName());
+			intent.putExtra("recordfile", recordfile);
+			startActivity(intent);
+//			new Thread(new RecordingInfo(recordfile)).start();
+//			loading.setVisibility(View.VISIBLE);
+//			pb.setVisibility(View.VISIBLE);
+//			pb.invalidate();
+//			loading.invalidate();
 			break;
 		default:
 			break;
@@ -368,11 +375,6 @@ public class StatusActivity extends Activity implements OnClickListener,
 		return -1;
 	}
 
-	@Override
-	public void run() {
-
-	}
-
 	private int getNameColumn() throws IOException, InterruptedException {
 		if (nameindex == 0) {
 			String columnname = "Name";
@@ -411,7 +413,7 @@ public class StatusActivity extends Activity implements OnClickListener,
 		case 0:
 			loading.setVisibility(View.INVISIBLE);
 			pb.setVisibility(View.INVISIBLE);
-			startActivity(lineg.showCPU(this, map));
+//			startActivity(lineg.showCPU(this, map));
 			break;
 
 		default:

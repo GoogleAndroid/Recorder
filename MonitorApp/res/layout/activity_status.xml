@@ -57,20 +57,4 @@
                 android:text="操作" />
         </TableRow>
     </TableLayout>
-
-    <ProgressBar
-        android:id="@+id/pb"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
-    <TextView
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/pb"
-        android:text="正在加载…………" />
-
 </RelativeLayout>

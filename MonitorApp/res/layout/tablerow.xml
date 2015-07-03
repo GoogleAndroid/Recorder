@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
+        android:background="@android:color/transparent"
         android:text="操作" />
 
 </TableRow>

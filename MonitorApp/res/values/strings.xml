@@ -12,5 +12,5 @@
     <string name="filename">文件名称:</string>
     <string name="title_activity_graphics">Graphics</string>
     <string name="title_activity_task">TaskActivity</string>
-
+    <string name="title_activity_monitor">MonitorActivity</string>
 </resources>
