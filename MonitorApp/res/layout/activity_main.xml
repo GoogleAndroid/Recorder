@@ -1,14 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background" >
+    android:background="@drawable/main" >
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="@string/description"
+        android:gravity="center"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ProgressBar
@@ -35,6 +37,7 @@
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textStyle="bold"
                 android:text="@string/selectApp" />
 
             <Spinner
@@ -57,6 +60,7 @@
                 android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textStyle="bold"
                 android:text="@string/filename" />
 
             <EditText
@@ -71,11 +75,6 @@
             </EditText>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" >
-        </LinearLayout>
     </LinearLayout>
 
     <Button
@@ -88,7 +87,7 @@
         android:background="@android:color/transparent"
         android:ems="10"
         android:text="开始录制"
-        android:textSize="12sp" />
+        android:textSize="15sp" />
     <Button
         android:id="@+id/recordingStatus"
         android:layout_width="150sp"
@@ -98,6 +97,6 @@
         android:layout_below="@+id/startRecording"
         android:background="@android:color/transparent"
         android:text="查看录制"
-        android:textSize="12sp" />
+        android:textSize="15sp" />
 
 </RelativeLayout>

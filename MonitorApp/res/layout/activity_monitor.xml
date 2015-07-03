@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loading"
     tools:context="${relativePackage}.${activityClass}" >
 
     <ProgressBar
@@ -17,39 +18,46 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/pb"
         android:layout_centerInParent="true"
-        android:text="正在加载…………" />
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="表急！！正在加载！！" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-         android:id="@+id/btnly"
-        android:gravity="center">
+        android:layout_height="fill_parent" >
 
-        <Button
-            android:id="@+id/cpu"
+        <LinearLayout
+            android:id="@+id/monitorly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CPU数据" />
+            android:gravity="center"
+            android:orientation="vertical" >
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/mem"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Mem数据" />
+            android:layout_gravity="bottom" >
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/cpu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:paddingRight="50dp"
+                android:textSize="10sp"
+                android:text="CPU曲线"
+                android:textColor="@android:color/holo_orange_light" />
 
-    <android.support.v7.widget.Space
-        android:id="@+id/space1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:layout_below="@id/btnly"
-        android:id="@+id/monitorly">
-    </LinearLayout>
+            <Button
+                android:id="@+id/mem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:textSize="10sp"
+                android:text="Mem曲线"
+                android:textColor="@android:color/holo_orange_light" />
+        </LinearLayout>
+    </FrameLayout>
 
 </RelativeLayout>

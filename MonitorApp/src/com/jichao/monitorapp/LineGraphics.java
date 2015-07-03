@@ -71,7 +71,7 @@ public class LineGraphics {
 			renderer.setYTitle("CPU占用率%");
 			renderer.setChartTitle("CPU占用率");
 		} else {
-			renderer.setYTitle("MEM使用");
+			renderer.setYTitle("MEM使用(KB)");
 			renderer.setChartTitle("MEM消耗");
 		}
 		renderer.setAxisTitleTextSize(30);

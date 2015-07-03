@@ -87,11 +87,19 @@ public class MonitorActivity extends Activity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.cpu:
-			showCPU();
+			if(View.VISIBLE==loading.getVisibility()){
+				showToast("正在加载数据，表急！！");
+			}else {
+				showCPU();	
+			}
 			break;
 
 		case R.id.mem:
-			showMem();
+			if(View.VISIBLE==loading.getVisibility()){
+				showToast("正在加载数据，表急！！");
+			}else {
+				showMem();	
+			}
 			break;
 		default:
 			break;

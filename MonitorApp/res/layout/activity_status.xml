@@ -3,14 +3,14 @@
     android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/table"
     tools:context="${relativePackage}.${activityClass}" >
 
     <TableLayout
         android:id="@+id/tablestatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dip"
-        android:background="#00ff00" >
+        android:layout_margin="2dp">
 
         <TableRow
             android:id="@+id/trtitle"
@@ -22,7 +22,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="应用名" />
+                android:text="应用名"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -30,7 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="文件名" />
+                android:text="文件名"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -38,7 +42,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="日期" />
+                android:text="日期"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -46,7 +52,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="状态" />
+                android:text="状态"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -54,7 +62,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="操作" />
+                android:text="操作"
+                android:textSize="18dp"
+                android:textStyle="bold" />
         </TableRow>
     </TableLayout>
+
 </RelativeLayout>
