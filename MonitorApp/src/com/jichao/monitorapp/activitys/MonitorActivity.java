@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
@@ -150,7 +151,14 @@ public class MonitorActivity extends Activity implements OnClickListener,
 
 	private void readRecordFile(String fileName) throws FileNotFoundException,
 			IOException, InterruptedException {
-		File recordingfile = new File(getFilesDir(), fileName);
+		File recordingfile = null ;
+		String stat = Environment.getExternalStorageState();
+		if(stat.equals(Environment.MEDIA_MOUNTED)||stat.equals(Environment.MEDIA_MOUNTED_READ_ONLY))	{		
+			recordingfile = new File(Environment.getExternalStorageDirectory(),fileName);
+		}else{
+			showToast("¥Ê¥¢Œﬁ∑®’“µΩ!");
+			return;
+		}
 		System.out.println("---Start ready data");
 		System.out.println("This file path is :"
 				+ recordingfile.getAbsolutePath());

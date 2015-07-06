@@ -62,21 +62,21 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:text="@string/filename" />
-
+            
             <EditText
                 android:id="@+id/filename"
                 android:layout_width="150sp"
                 android:layout_height="30sp"
                 android:layout_weight="1"
                 android:background="@drawable/textselector"
+                android:hint="输入文件名称……"
+                android:textSize="10sp"
                 android:ems="10" >
-
                 <requestFocus />
             </EditText>
         </LinearLayout>
 
     </LinearLayout>
-
     <Button
         android:id="@+id/startRecording"
         android:layout_width="150sp"
@@ -84,7 +84,6 @@
         android:layout_below="@+id/linearLayout1"
         android:layout_centerInParent="true"
         android:layout_marginTop="60dp"
-        android:background="@android:color/transparent"
         android:ems="10"
         android:text="开始录制"
         android:textSize="15sp" />
@@ -95,7 +94,6 @@
         android:layout_centerInParent="true"
         android:ems="10"
         android:layout_below="@+id/startRecording"
-        android:background="@android:color/transparent"
         android:text="查看录制"
         android:textSize="15sp" />
 

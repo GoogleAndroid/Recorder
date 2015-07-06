@@ -24,6 +24,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
@@ -45,6 +46,7 @@ import com.jichao.monitorapp.LineGraphics;
 import com.jichao.monitorapp.R;
 import com.jichao.monitorapp.R.id;
 import com.jichao.monitorapp.R.layout;
+import com.jichao.monitorapp.bean.CONS;
 import com.jichao.monitorapp.bean.Recorder;
 
 @SuppressLint({ "InflateParams", "NewApi" })
@@ -70,6 +72,9 @@ public class StatusActivity extends Activity implements OnClickListener,
 		setContentView(R.layout.activity_status);
 		initView();
 		filenames = getRecordingFiles();
+		if(filenames==null){
+			return;
+		}
 		drawTable(filenames);
 		initlst();
 		handler = new Handler(this);
@@ -122,7 +127,14 @@ public class StatusActivity extends Activity implements OnClickListener,
 	}
 
 	private String[] getRecordingFiles() {
-		File filedir = getFilesDir();
+		File filedir = null;
+		String stat = Environment.getExternalStorageState();
+		if(stat.equals(Environment.MEDIA_MOUNTED)||stat.equals(Environment.MEDIA_MOUNTED_READ_ONLY))	{		
+			filedir = new File(Environment.getExternalStorageDirectory(),CONS.PAKNAME);
+		}else{
+			showToast("没有录制文件！！");
+			return null;
+		}
 		String[] filelist = filedir.list(new FilenameFilter() {
 
 			@Override
@@ -163,7 +175,7 @@ public class StatusActivity extends Activity implements OnClickListener,
 						break;
 					}
 				}
-				new File(getFilesDir(), recordfile).delete();
+				new File(new File(Environment.getExternalStorageDirectory(),CONS.PAKNAME), recordfile).delete();
 				((TableRow) v.getParent()).setVisibility(View.GONE);
 			}
 			break;
@@ -230,7 +242,7 @@ public class StatusActivity extends Activity implements OnClickListener,
 
 	private void readRecordFile(String fileName) throws FileNotFoundException,
 			IOException, InterruptedException {
-		File recordingfile = new File(getFilesDir(), fileName);
+		File recordingfile = new File(Environment.getExternalStorageDirectory(), fileName);
 		System.out.println("---Start ready data");
 		System.out.println("This file path is :"
 				+ recordingfile.getAbsolutePath());

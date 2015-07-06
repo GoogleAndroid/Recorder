@@ -1,5 +1,6 @@
 package com.jichao.monitorapp.activitys;
 
+import java.io.Externalizable;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +16,9 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Handler.Callback;
 import android.os.Message;
 import android.preference.EditTextPreference;
@@ -41,10 +44,11 @@ import android.widget.Toast;
 
 import com.jichao.monitorapp.R;
 import com.jichao.monitorapp.bean.AppInfo;
+import com.jichao.monitorapp.bean.CONS;
 
 @SuppressLint("NewApi")
 public class MainActivity extends Activity implements OnClickListener,
-		OnItemClickListener, OnItemSelectedListener, Runnable, Callback {
+		OnItemClickListener, OnItemSelectedListener, Callback {
 	final static String TAG = "monitor";
 	// 定义变量
 	Spinner sp1;
@@ -160,8 +164,8 @@ public class MainActivity extends Activity implements OnClickListener,
 		public void run() {
 			super.run();
 			try {
-				startRecording(filename);
-				handler.sendEmptyMessage(0);
+				Looper.prepare();
+				handler.sendEmptyMessage(startRecording(filename));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -279,22 +283,36 @@ public class MainActivity extends Activity implements OnClickListener,
 		toast.show();
 	}
 
-	private void startRecording(String _filename) throws IOException,
+	private int startRecording(String _filename) throws IOException,
 			InterruptedException {
 		System.out.println("************进入startRecording");
 		if (getApplication().getSharedPreferences("Recordings",
 				Context.MODE_PRIVATE).getBoolean("hasRecording", false)) {
-			showToast("当前还有录制没有完成！请先停止再开始新的任务！");
-			return;
+			return -3;
 		}
-		File recordingfile;
+		File recordingfile = null;
 		long time = new Date().getTime();
 		String storeFilename = "jichao" + "__" + appname + "__" + packagename+"__"+_filename
 				+ "__" + time;
 		storeFilename = storeFilename.replace(" ","");
-		recordingfile = new File(getFilesDir(), storeFilename);
+		//获取外部存储并写入内存和CPU信息
+		String stat = Environment.getExternalStorageState();
+		if(stat.equals(Environment.MEDIA_MOUNTED))	{
+			File recordFolder = new File(Environment.getExternalStorageDirectory(),CONS.PAKNAME);
+			if(!recordFolder.exists())
+				recordFolder.mkdir();
+			recordingfile = new File(recordFolder,storeFilename);
+			recordingfile.createNewFile();
+		}else if (stat.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
+			
+			return -1;
+		}else{
+			
+			return -2;
+		}
 		File topStart = new File(getFilesDir(), "start.sh");
 		System.out.println("***************storeFilename" + storeFilename);
+		System.out.println("***************storeFilenamePath" + recordingfile.getAbsolutePath());
 		System.out.println("top  -d 5 |grep " + packagename + "> "
 				+ recordingfile.getAbsolutePath());
 		topStart.delete();
@@ -307,17 +325,13 @@ public class MainActivity extends Activity implements OnClickListener,
 		fw.close();
 		topStart.setExecutable(true);
 		Runtime.getRuntime().exec(topStart.getAbsolutePath());
-
+		System.out.println("---------------设置录制flag");
 		Editor et = getApplication().getSharedPreferences("Recordings",
 				Context.MODE_PRIVATE).edit();
 		et.putBoolean("hasRecording", true);
 		et.putLong("ongoing", time);
 		et.apply();
-	}
-
-	@Override
-	public void run() {
-
+		return 0;
 	}
 
 	@Override
@@ -328,12 +342,20 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 	@Override
 	public boolean handleMessage(Message msg) {
+		pb.setVisibility(View.INVISIBLE);
 		switch (msg.what) {
 		case 0:
-			pb.setVisibility(View.INVISIBLE);
 			showToast("录制已经开始！");
 			break;
-
+		case -1:
+			showToast("存储只读!无法写入数据！");
+			break;
+		case -2:
+			showToast("存储无法找到，或者已满！");
+			break;
+		case -3:
+			showToast("当前还有录制没有完成！请先停止再开始新的任务!");
+			break;
 		default:
 			break;
 		}
