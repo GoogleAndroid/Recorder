@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.jichao.monitorapp.LineGraphics;
 import com.jichao.monitorapp.R;
+import com.jichao.monitorapp.bean.CONS;
 import com.jichao.monitorapp.bean.Recorder;
 
 public class MonitorActivity extends Activity implements OnClickListener,
@@ -88,18 +89,18 @@ public class MonitorActivity extends Activity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.cpu:
-			if(View.VISIBLE==loading.getVisibility()){
+			if (View.VISIBLE == loading.getVisibility()) {
 				showToast("正在加载数据，表急！！");
-			}else {
-				showCPU();	
+			} else {
+				showCPU();
 			}
 			break;
 
 		case R.id.mem:
-			if(View.VISIBLE==loading.getVisibility()){
+			if (View.VISIBLE == loading.getVisibility()) {
 				showToast("正在加载数据，表急！！");
-			}else {
-				showMem();	
+			} else {
+				showMem();
 			}
 			break;
 		default:
@@ -151,11 +152,14 @@ public class MonitorActivity extends Activity implements OnClickListener,
 
 	private void readRecordFile(String fileName) throws FileNotFoundException,
 			IOException, InterruptedException {
-		File recordingfile = null ;
+		File recordingfile = null;
 		String stat = Environment.getExternalStorageState();
-		if(stat.equals(Environment.MEDIA_MOUNTED)||stat.equals(Environment.MEDIA_MOUNTED_READ_ONLY))	{		
-			recordingfile = new File(Environment.getExternalStorageDirectory(),fileName);
-		}else{
+		if (stat.equals(Environment.MEDIA_MOUNTED)
+				|| stat.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
+			recordingfile = new File(new File(
+					Environment.getExternalStorageDirectory(), CONS.PAKNAME),
+					fileName);
+		} else {
 			showToast("存储无法找到!");
 			return;
 		}
