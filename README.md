@@ -4,8 +4,11 @@
 ##使用
 * 安装Recorder APP
 * 启动Recorder
-* 选择要监控的APP名称
+* 选择要监控的APP名称<br>
 ![](https://github.com/GoogleAndroid/Recorder/blob/master/MonitorApp/select_app.png)
-* 开始录制，输入要录制文件名
-* 录制结束
-* 查看CPU，MEM信息
+* 开始录制，输入要录制文件名<br>
+![](https://github.com/GoogleAndroid/Recorder/blob/master/MonitorApp/input_name.png)
+* 录制结束<br>
+![](https://github.com/GoogleAndroid/Recorder/blob/master/MonitorApp/file_list.png)
+* 查看CPU，MEM信息<br>
+![](https://github.com/GoogleAndroid/Recorder/blob/master/MonitorApp/CPU.png)
